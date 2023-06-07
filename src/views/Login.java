@@ -4,10 +4,14 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import jdbc.controller.usuariosController;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
 import java.awt.SystemColor;
@@ -179,7 +183,10 @@ public class Login extends JFrame {
 		lblContrasea.setBounds(65, 316, 140, 26);
 		panel.add(lblContrasea);
 		
-		JPanel btnLogin = new JPanel();
+		//JPanel btnLogin = new JPanel();
+		JButton btnLogin = new JButton();
+		btnLogin.addActionListener(new usuariosController(this));
+		
 		btnLogin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -190,10 +197,10 @@ public class Login extends JFrame {
 			public void mouseExited(MouseEvent e) {
 				btnLogin.setBackground(SystemColor.textHighlight);
 			}
-			@Override
+			/*@Override
 			public void mouseClicked(MouseEvent e) {
 				Login();
-			}
+			}*/
 		});
 		btnLogin.setBackground(SystemColor.textHighlight);
 		btnLogin.setBounds(65, 431, 122, 44);
@@ -234,7 +241,7 @@ public class Login extends JFrame {
 		header.setLayout(null);
 	}
 	
-	private void Login() {
+	/*private void Login() {
 		 String Usuario= "admin";
 	     String Contraseña="admin";
 
@@ -247,7 +254,18 @@ public class Login extends JFrame {
 	        }else {
 	            JOptionPane.showMessageDialog(this, "Usuario o Contraseña no válidos");
 	        }
-	} 
+	}*/ 
+	
+	
+	public String getNombre() {
+		return txtUsuario.getText();
+	}
+	
+	public String getContrasenha() {
+		return new String(txtContrasena.getPassword());
+	}
+	
+	
 	 private void headerMousePressed(java.awt.event.MouseEvent evt) {
 	        xMouse = evt.getX();
 	        yMouse = evt.getY();

@@ -6,9 +6,9 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/John/OneDrive/Curso Oracle/Especializacion/Challenge 2/jcalendar-1.4/lib/jcalendar-1.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/John/OneDrive/Curso Oracle/Especializacion/Challenge 2/jcalendar-1.4/lib/jgoodies-common-1.2.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/John/OneDrive/Curso Oracle/Especializacion/Challenge 2/jcalendar-1.4/lib/jgoodies-looks-2.4.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/John/OneDrive/Curso Oracle/Especializacion/Challenge 2/jcalendar-1.4/lib/junit-4.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/John/OneDrive/Curso Oracle/Especializacion/Challenge 2/Hotel-Alura_Library/c3p0-0.9.5.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/John/OneDrive/Curso Oracle/Especializacion/Challenge 2/Hotel-Alura_Library/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/John/OneDrive/Curso Oracle/Especializacion/Challenge 2/Hotel-Alura_Library/mchange-commons-java-0.2.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/John/OneDrive/Curso Oracle/Especializacion/Challenge 2/Hotel-Alura_Library/mysql-connector-java-8.0.17.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
