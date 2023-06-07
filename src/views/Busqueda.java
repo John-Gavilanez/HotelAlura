@@ -6,6 +6,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import jdbc.controller.huespedController;
+import jdbc.controller.reservaController;
+import jdbc.modelo.Reserva;
+
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -15,6 +20,7 @@ import java.awt.SystemColor;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
@@ -38,6 +44,12 @@ public class Busqueda extends JFrame {
 	private JLabel labelAtras;
 	private JLabel labelExit;
 	int xMouse, yMouse;
+	
+	private reservaController  ReservaController;
+	private huespedController  HuespedController;
+	private ReservasView reservasView;
+	String reserva;
+	String huespedes;
 
 	/**
 	 * Launch the application.
@@ -59,6 +71,11 @@ public class Busqueda extends JFrame {
 	 * Create the frame.
 	 */
 	public Busqueda() {
+		
+		this.reservasView = new ReservasView();
+		this.ReservaController = new reservaController();
+		this.HuespedController = new huespedController();
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Busqueda.class.getResource("/imagenes/lupa2.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 571);
@@ -101,6 +118,8 @@ public class Busqueda extends JFrame {
 		modelo.addColumn("Fecha Check Out");
 		modelo.addColumn("Valor");
 		modelo.addColumn("Forma de Pago");
+		mostrarTablaReservas();
+		
 		JScrollPane scroll_table = new JScrollPane(tbReservas);
 		panel.addTab("Reservas", new ImageIcon(Busqueda.class.getResource("/imagenes/reservado.png")), scroll_table, null);
 		scroll_table.setVisible(true);
@@ -260,6 +279,34 @@ public class Busqueda extends JFrame {
 		lblEliminar.setBounds(0, 0, 122, 35);
 		btnEliminar.add(lblEliminar);
 		setResizable(false);
+	}
+	
+	private List<Reserva> MostrarReservas() {
+		return this.ReservaController.mostrar();
+
+	}
+	
+	private void mostrarTablaReservas() {
+		List<Reserva> reservas = MostrarReservas();
+		modelo.setRowCount(0);
+		
+		try {
+			
+			for(Reserva reserva:reservas) {
+				
+				modelo.addRow(new Object[] {
+						
+						reserva.getId(),reserva.getFechaEntrada(),reserva.getFechaSalida(),reserva.getValor(),
+						reserva.getFormaPago()
+						
+				});
+				
+			}
+			
+		} catch (Exception e) {
+			throw e;
+		}
+
 	}
 	
 //Código que permite mover la ventana por la pantalla según la posición de "x" y "y"

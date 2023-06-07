@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import jdbc.modelo.Reserva;
 
@@ -43,6 +46,50 @@ public class ReservaDAO {
 			throw new RuntimeException("Error"+e.getMessage(),e);
 		}
 		
+	}
+	
+	public List<Reserva> mostrar() {
+		
+		List<Reserva> reserva = new ArrayList<Reserva>();
+		
+		try {
+			String sql = "SELECT id, fecha_entrada, fecha_salida, valor, forma_de_pago FROM reservas";
+			
+			try(PreparedStatement psmt = con.prepareStatement(sql)){
+				psmt.execute();
+				
+				convertirReserva(reserva, psmt);
+				
+			}
+			return reserva;
+			
+		} catch (SQLException e) {
+			throw new RuntimeException();
+		}
+		
+	}
+	
+	
+	private void convertirReserva(List<Reserva> reserva, PreparedStatement psmt) throws SQLException {
+		
+		try (ResultSet rst = psmt.getResultSet()){
+			
+			while(rst.next()) {
+				int id = rst.getInt("id");
+				LocalDate FechaEntrada = rst.getDate("fecha_entrada").toLocalDate().plusDays(1);
+				LocalDate FechaSalida = rst.getDate("fecha_salida").toLocalDate().plusDays(1);
+				String valor = rst.getString("valor");
+				String formaPago = rst.getString("forma_de_pago");
+				
+				Reserva habitacion = new Reserva(id, FechaEntrada, FechaSalida, valor, formaPago);
+				reserva.add(habitacion);
+						
+				
+			}
+			
+		} 
+		
+
 	}
 	
 
