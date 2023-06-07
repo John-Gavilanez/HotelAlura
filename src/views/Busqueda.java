@@ -235,6 +235,14 @@ public class Busqueda extends JFrame {
 		btnbuscar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
+				limpiarTabla();
+				if (txtBuscar.getText().equals("")) {
+					mostrarTablaReservas();
+					
+				}else {
+					mostrarTablaReservasID();
+				}
 
 			}
 		});
@@ -286,6 +294,11 @@ public class Busqueda extends JFrame {
 
 	}
 	
+	private List<Reserva> BuscarIDReservas() {
+		return this.ReservaController.buscar(txtBuscar.getText()); 
+
+	}
+	
 	private void mostrarTablaReservas() {
 		List<Reserva> reservas = MostrarReservas();
 		modelo.setRowCount(0);
@@ -306,6 +319,34 @@ public class Busqueda extends JFrame {
 		} catch (Exception e) {
 			throw e;
 		}
+
+	}
+	
+	private void mostrarTablaReservasID() {
+		List<Reserva> reservas = BuscarIDReservas();
+		
+		try {
+			
+			for(Reserva reserva:reservas) {
+				
+				modelo.addRow(new Object[] {
+						
+						reserva.getId(),reserva.getFechaEntrada(),reserva.getFechaSalida(),reserva.getValor(),
+						reserva.getFormaPago()
+						
+				});
+				
+			}
+			
+		} catch (Exception e) {
+			throw e;
+		}
+
+	}
+	
+	private void limpiarTabla() {
+		((DefaultTableModel) tbHuespedes.getModel()).setRowCount(0);
+		((DefaultTableModel) tbReservas.getModel()).setRowCount(0);
 
 	}
 	

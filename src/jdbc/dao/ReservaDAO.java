@@ -69,6 +69,29 @@ public class ReservaDAO {
 		
 	}
 	
+public List<Reserva> buscarId(String id) {
+		
+		List<Reserva> reserva = new ArrayList<Reserva>();
+		
+		try {
+			String sql = "SELECT id, fecha_entrada, fecha_salida, valor, forma_de_pago FROM reservas WHERE id= ?";
+			
+			try(PreparedStatement psmt = con.prepareStatement(sql)){
+				
+				psmt.setString(1, id);
+				psmt.execute();
+				
+				convertirReserva(reserva, psmt);
+				
+			}
+			return reserva;
+			
+		} catch (SQLException e) {
+			throw new RuntimeException();
+		}
+		
+	}
+	
 	
 	private void convertirReserva(List<Reserva> reserva, PreparedStatement psmt) throws SQLException {
 		

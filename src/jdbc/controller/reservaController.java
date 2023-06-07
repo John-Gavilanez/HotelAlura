@@ -26,4 +26,8 @@ public class reservaController {
 		return this.reservaDao.mostrar();
 	}
 	
+	public List<Reserva> buscar(String id){
+		return this.reservaDao.buscarId(id);
+	}
+	
 }
