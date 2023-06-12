@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,6 +92,44 @@ public List<Reserva> buscarId(String id) {
 		}
 		
 	}
+
+	public void actualizar(LocalDate fechaEntrada, LocalDate fechaSalida, String valor, String formaPago, Integer id) {
+		
+		try (PreparedStatement pstm = con.prepareStatement("UPDATE reservas SET "
+				+ "fecha_entrada=?, fecha_salida=?, valor=?, forma_de_pago=? WHERE id=?")) {
+			
+			pstm.setObject(1, java.sql.Date.valueOf(fechaEntrada));
+			pstm.setObject(2, java.sql.Date.valueOf(fechaSalida));
+			pstm.setObject(3, valor);
+			pstm.setObject(4, formaPago);
+			pstm.setObject(5, id);
+			pstm.execute();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException("Error"+e.getMessage(),e);
+		}
+
+	}
+	
+	public void eliminar(Integer id) {
+		try {
+			
+			Statement estate = con.createStatement();
+			estate.execute("SET GLOBAL FOREIGN_KEY_CHECKS=0");
+			PreparedStatement pstm = con.prepareStatement("DELETE FROM reservas WHERE id = ?");
+			pstm.setInt(1,id);
+			pstm.execute();
+			estate.execute("SET GLOBAL FOREIGN_KEY_CHECKS=1");
+			
+		} catch (SQLException e) {
+			//throw new RuntimeException();
+			throw new RuntimeException("Error"+e.getMessage(),e);
+		}
+		
+	}
+
+
+
 	
 	
 	private void convertirReserva(List<Reserva> reserva, PreparedStatement psmt) throws SQLException {

@@ -380,6 +380,11 @@ public class ReservasView extends JFrame {
 		}
 
 	}
+	
+	public void limpiarValor() {
+		txtValor.setText("");
+		
+	}
 
 	
 	private void headerMousePressed(java.awt.event.MouseEvent evt) {
